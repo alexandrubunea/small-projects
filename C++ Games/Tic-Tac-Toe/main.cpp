@@ -90,11 +90,16 @@ void readKeyboard() {
         break;
       }
       case '\r': {
+        if(gameBoard[selector.first][selector.second] != clear) {
+          cout << "\nThis cell is already occupied.\n";
+          sleep(1);
+          break;
+        }
         gameBoard[selector.first][selector.second] = human;
+        system("cls");
+        selector = make_pair(-1, -1);
+        drawGameBoard();
         if(checkWinner() == oWin) {
-          system("cls");
-          selector = make_pair(-1, -1);
-          drawGameBoard();
           score.second++;
           cout << "\nGame has been won by human player.\n" << "Current score: A.I - " << score.first << " | Human - " << score.second << "\n";
           cout << "New round starting in 3 seconds...";
@@ -104,9 +109,6 @@ void readKeyboard() {
           break;
         } else if(checkWinner() == nWin) {
           isHumanTurn = false;
-          system("cls");
-          selector = make_pair(-1, -1);
-          drawGameBoard();
           nextMove();
           if(checkWinner() == xWin) {
             system("cls");
@@ -122,11 +124,9 @@ void readKeyboard() {
           selector = make_pair(1, 1);
           break;
         } else if(checkWinner() == tie) {
-          system("cls");
-          selector = make_pair(-1, -1);
-          drawGameBoard();
           cout << "\nGame tie.\n" << "Current score: A.I - " << score.first << " | Human - " << score.second << "\n";
           cout << "New round starting in 3 seconds...";
+          selector = make_pair(1, 1);
           sleep(3);
           resetGameBoard();
           break;

@@ -92,6 +92,9 @@ void readKeyboard() {
       case '\r': {
         gameBoard[selector.first][selector.second] = human;
         if(checkWinner() == oWin) {
+          system("cls");
+          selector = make_pair(-1, -1);
+          drawGameBoard();
           score.second++;
           cout << "\nGame has been won by human player.\n" << "Current score: A.I - " << score.first << " | Human - " << score.second << "\n";
           cout << "New round starting in 3 seconds...";
@@ -106,6 +109,9 @@ void readKeyboard() {
           drawGameBoard();
           nextMove();
           if(checkWinner() == xWin) {
+            system("cls");
+            selector = make_pair(-1, -1);
+            drawGameBoard();
             score.first++;
             cout << "\nGame has been won by A.I player.\n" << "Current score: A.I - " << score.first << " | Human - " << score.second << "\n";
             cout << "New round starting in 3 seconds...";
